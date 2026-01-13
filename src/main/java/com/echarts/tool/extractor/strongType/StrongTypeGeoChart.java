@@ -33,10 +33,10 @@ public class StrongTypeGeoChart {
                 }
 
                 // --- 纬度 ---
-                if (obj.getLongitude() == null) {
+                if (obj.getLatitude() == null) {
                     values.add(0);
                 }else {
-                    values.add(obj.getLongitude());
+                    values.add(obj.getLatitude());
                 }
 
                 result.setValue(values);

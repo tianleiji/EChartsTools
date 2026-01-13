@@ -12,6 +12,8 @@ import com.echarts.tool.testVO.GeoChartDomain;
 import com.echarts.tool.testVO.LineChartDomain;
 import com.echarts.tool.model.LineChartResult;
 import com.echarts.tool.testVO.PieChartDomain;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -95,6 +97,17 @@ public class AppTest
         // 3. 调用你的方法
         List<GeoChartResult> result = service.getGeoChart(testList);
 
-        System.out.println(result);
+        JSON(result);
+    }
+
+    private static <T> void JSON(List<T> result){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+            System.out.println("=== 前端接收到的 JSON 数据 ===");
+            System.out.println(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }
