@@ -1,4 +1,4 @@
-package com.echarts.tool.contract.strong.smallest;
+package com.echarts.tool.contract.ValueDriven.smallest;
 
 public interface LineDataSupplier {
     /**

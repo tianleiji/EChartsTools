@@ -1,6 +1,6 @@
 package com.echarts.tool.testVO.smallest;
 
-import com.echarts.tool.contract.flexible.smallest.LineDataSupplier;
+import com.echarts.tool.contract.FieldDriven.smallest.LineDataSupplier;
 import lombok.Data;
 
 @Data

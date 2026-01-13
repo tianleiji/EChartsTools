@@ -1,6 +1,6 @@
-package com.echarts.tool.extractor.strongType;
+package com.echarts.tool.extractor.ValueDriven;
 
-import com.echarts.tool.contract.strong.GeoChartDataSupplier;
+import com.echarts.tool.contract.ValueDriven.GeoChartDataSupplier;
 import com.echarts.tool.exception.NullXAxisValueException;
 import com.echarts.tool.model.GeoChartResult;
 

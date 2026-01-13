@@ -1,6 +1,6 @@
 package com.echarts.tool.testVO;
 
-import com.echarts.tool.contract.strong.GeoChartDataSupplier;
+import com.echarts.tool.contract.ValueDriven.GeoChartDataSupplier;
 import lombok.Data;
 
 @Data

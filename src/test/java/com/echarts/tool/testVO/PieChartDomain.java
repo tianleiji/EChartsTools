@@ -1,6 +1,6 @@
 package com.echarts.tool.testVO;
 
-import com.echarts.tool.contract.strong.PieChartDataSupplier;
+import com.echarts.tool.contract.ValueDriven.PieChartDataSupplier;
 import lombok.Data;
 
 @Data

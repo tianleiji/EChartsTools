@@ -1,4 +1,4 @@
-package com.echarts.tool.contract.flexible;
+package com.echarts.tool.contract.FieldDriven;
 
 public interface GeoChartDataSupplier {
     /**

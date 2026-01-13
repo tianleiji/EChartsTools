@@ -1,7 +1,7 @@
 package com.echarts.tool.testVO;
 
-import com.echarts.tool.contract.flexible.LineChartDataSupplier;
-import com.echarts.tool.contract.flexible.smallest.LineDataSupplier;
+import com.echarts.tool.contract.FieldDriven.LineChartDataSupplier;
+import com.echarts.tool.contract.FieldDriven.smallest.LineDataSupplier;
 import com.echarts.tool.testVO.smallest.SmallestLineDomain;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.echarts.tool.contract.strong;
+package com.echarts.tool.contract.ValueDriven;
 
-import com.echarts.tool.contract.strong.smallest.LineDataSupplier;
+import com.echarts.tool.contract.ValueDriven.smallest.LineDataSupplier;
 
 import java.util.List;
 

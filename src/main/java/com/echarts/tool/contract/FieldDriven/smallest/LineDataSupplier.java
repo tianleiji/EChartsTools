@@ -1,4 +1,4 @@
-package com.echarts.tool.contract.flexible.smallest;
+package com.echarts.tool.contract.FieldDriven.smallest;
 
 public interface LineDataSupplier {
     /**

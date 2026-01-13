@@ -1,10 +1,9 @@
 package com.echarts.tool;
 
-import com.echarts.tool.extractor.LineChart;
-import com.echarts.tool.extractor.strongType.StrongTypeGeoChart;
+import com.echarts.tool.extractor.FieldDriven.LineChart;
+import com.echarts.tool.extractor.ValueDriven.StrongTypeGeoChart;
 
-import com.echarts.tool.extractor.strongType.StrongTypeLineChart;
-import com.echarts.tool.extractor.strongType.StrongTypePieChart;
+import com.echarts.tool.extractor.ValueDriven.StrongTypePieChart;
 import com.echarts.tool.model.GeoChartResult;
 import com.echarts.tool.model.PieChartResult;
 import com.echarts.tool.testVO.GeoChartDomain;

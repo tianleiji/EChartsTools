@@ -1,6 +1,6 @@
-package com.echarts.tool.contract.flexible;
+package com.echarts.tool.contract.FieldDriven;
 
-import com.echarts.tool.contract.flexible.smallest.LineDataSupplier;
+import com.echarts.tool.contract.FieldDriven.smallest.LineDataSupplier;
 
 import java.util.List;
 

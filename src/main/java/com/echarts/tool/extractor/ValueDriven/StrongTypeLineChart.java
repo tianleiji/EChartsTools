@@ -1,6 +1,6 @@
-package com.echarts.tool.extractor.strongType;
+package com.echarts.tool.extractor.ValueDriven;
 
-import com.echarts.tool.contract.strong.LineChartDataSupplier;
+import com.echarts.tool.contract.ValueDriven.LineChartDataSupplier;
 import com.echarts.tool.exception.NullXAxisValueException;
 import com.echarts.tool.model.metaData.LineChartData;
 import com.echarts.tool.model.LineChartResult;

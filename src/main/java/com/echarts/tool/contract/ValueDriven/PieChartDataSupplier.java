@@ -1,4 +1,4 @@
-package com.echarts.tool.contract.strong;
+package com.echarts.tool.contract.ValueDriven;
 
 public interface PieChartDataSupplier {
     /**
