@@ -3,6 +3,7 @@ package com.echarts.tool;
 import com.echarts.tool.extractor.GeoChart;
 import com.echarts.tool.extractor.LineChart;
 import com.echarts.tool.extractor.PieChart;
+import com.echarts.tool.extractor.strongType.StrongTypeGeoChart;
 import com.echarts.tool.extractor.strongType.StrongTypeLineChart;
 import com.echarts.tool.extractor.strongType.StrongTypePieChart;
 import com.echarts.tool.model.GeoChartResult;
@@ -83,13 +84,13 @@ public class AppTest
             GeoChartDomain domain = new GeoChartDomain();
             domain.setId(Long.valueOf(i));
             domain.setName("test" + i);
-            domain.setType(String.valueOf(i+10));
-            domain.setUnit(String.valueOf(i+100));
+            domain.setType((double)(i+10));
+            domain.setUnit((double)(i+100));
             testList.add(domain);
             System.out.println(domain);
         }
         // 2. 创建你的服务类实例（假设叫 ChartService）
-        GeoChart service = new GeoChart();
+        StrongTypeGeoChart service = new StrongTypeGeoChart();
 
         // 3. 调用你的方法
         List<GeoChartResult> result = service.getGeoChart(testList);

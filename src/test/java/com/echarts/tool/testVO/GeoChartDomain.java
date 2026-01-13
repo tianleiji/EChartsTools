@@ -1,26 +1,27 @@
 package com.echarts.tool.testVO;
 
-import com.echarts.tool.contract.flexible.GeoChartDataSupplier;
+import com.echarts.tool.contract.strong.GeoChartDataSupplier;
 import lombok.Data;
 
 @Data
 public class GeoChartDomain implements GeoChartDataSupplier {
     private Long id;
     private String name;
-    private String type;
-    private String unit;
+    private Double type;
+    private Double unit;
 
     @Override
     public String getName(){
-        return "name";
-    }
-    @Override
-    public String getLongitude() {
-        return "type";
+        return name;
     }
 
     @Override
-    public String getLatitude() {
-        return "unit";
+    public Double getLongitude() {
+        return type;
+    }
+
+    @Override
+    public Double getLatitude() {
+        return unit;
     }
 }
