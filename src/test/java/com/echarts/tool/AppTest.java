@@ -1,9 +1,13 @@
 package com.echarts.tool;
 
+import com.echarts.tool.extractor.GeoChart;
+import com.echarts.tool.extractor.LineChart;
 import com.echarts.tool.extractor.PieChart;
 import com.echarts.tool.extractor.strongType.StrongTypeLineChart;
 import com.echarts.tool.extractor.strongType.StrongTypePieChart;
+import com.echarts.tool.model.GeoChartResult;
 import com.echarts.tool.model.PieChartResult;
+import com.echarts.tool.testVO.GeoChartDomain;
 import com.echarts.tool.testVO.LineChartDomain;
 import com.echarts.tool.model.LineChartResult;
 import com.echarts.tool.testVO.PieChartDomain;
@@ -20,7 +24,7 @@ public class AppTest
 {
 
     public static void main(String[] args) {
-        PieChartTest();
+        GeoChartTest();
     }
     /**
      * Create the test case
@@ -34,13 +38,13 @@ public class AppTest
             LineChartDomain domain = new LineChartDomain();
             domain.setId(i);
             domain.setName("test" + i);
-            domain.setValue(i + 10);
+            domain.setValue(String.valueOf(i));
             domain.setColor("red" + i);
             domain.setType("type" + i);
             testList.add(domain);
         }
         // 2. 创建你的服务类实例（假设叫 ChartService）
-        StrongTypeLineChart service = new StrongTypeLineChart();
+        LineChart service = new LineChart();
 
         // 3. 调用你的方法
         LineChartResult result = service.getLineChart(testList);
@@ -67,6 +71,28 @@ public class AppTest
 
         // 3. 调用你的方法
         List<PieChartResult> result = service.getPieChart(testList);
+
+        System.out.println(result);
+    }
+
+    public static void GeoChartTest()
+    {
+        // 1. 准备测试数据
+        List<GeoChartDomain> testList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            GeoChartDomain domain = new GeoChartDomain();
+            domain.setId(Long.valueOf(i));
+            domain.setName("test" + i);
+            domain.setType(String.valueOf(i+10));
+            domain.setUnit(String.valueOf(i+100));
+            testList.add(domain);
+            System.out.println(domain);
+        }
+        // 2. 创建你的服务类实例（假设叫 ChartService）
+        GeoChart service = new GeoChart();
+
+        // 3. 调用你的方法
+        List<GeoChartResult> result = service.getGeoChart(testList);
 
         System.out.println(result);
     }

@@ -2,13 +2,14 @@ package com.echarts.tool.extractor;
 
 import com.echarts.tool.contract.flexible.PieChartDataSupplier;
 import com.echarts.tool.exception.ChartFieldNotFoundException;
-import com.echarts.tool.exception.InvalidYAxisValueException;
 import com.echarts.tool.exception.NullNameValueException;
 import com.echarts.tool.model.PieChartResult;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.echarts.tool.check.Convert.parseFloatNumber;
 
 public class PieChart {
     public <T extends PieChartDataSupplier> List<PieChartResult> getPieChart(List<T> objectList){
@@ -53,15 +54,7 @@ public class PieChart {
                 Field valueField = clazz.getDeclaredField(value);
                 valueField.setAccessible(true);
                 Object yValue = valueField.get(obj);
-                Number num;
-                if (yValue == null) {
-                    num = 0;
-                } else if (yValue instanceof Number) {
-                    num = (Number) yValue;
-                } else {
-                    throw new InvalidYAxisValueException(obj.getClass());
-                }
-                result.setValue(num);
+                result.setValue(parseFloatNumber(yValue));
             } catch (Exception e) {
                 throw new RuntimeException("Failed to read field from object: " + obj, e);
             }

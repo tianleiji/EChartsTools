@@ -1,23 +1,23 @@
 package com.echarts.tool.testVO;
 
-import com.echarts.tool.contract.strong.LineChartDataSupplier;
+import com.echarts.tool.contract.flexible.LineChartDataSupplier;
 import lombok.Data;
 
 @Data
 public class LineChartDomain implements LineChartDataSupplier {
     private Integer id;
     private String name;
-    private Integer value;
+    private String value;
     private String type;
     private String color;
 
     @Override
-    public String getXAData() {
-        return name;
+    public String getXAxis() {
+        return "name";
     }
 
     @Override
-    public Number getYData() {
-        return value;
+    public String getYAxis() {
+        return "value";
     }
 }

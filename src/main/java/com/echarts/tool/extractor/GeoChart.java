@@ -2,13 +2,14 @@ package com.echarts.tool.extractor;
 
 import com.echarts.tool.contract.flexible.GeoChartDataSupplier;
 import com.echarts.tool.exception.ChartFieldNotFoundException;
-import com.echarts.tool.exception.InvalidYAxisValueException;
 import com.echarts.tool.exception.NullNameValueException;
 import com.echarts.tool.model.GeoChartResult;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.echarts.tool.check.Convert.parseDoubleNumber;
 
 public class GeoChart {
     public <T extends GeoChartDataSupplier> List<GeoChartResult> getGeoChart(List<T> objectList){
@@ -58,29 +59,13 @@ public class GeoChart {
                 Field longitudeField = clazz.getDeclaredField(longitude);
                 longitudeField.setAccessible(true);
                 Object longitudeObj = longitudeField.get(obj);
-                Number longitudeNum;
-                if (longitudeObj == null) {
-                    longitudeNum = 0;
-                } else if (longitudeObj instanceof Number) {
-                    longitudeNum = (Number) longitudeObj;
-                } else {
-                    throw new InvalidYAxisValueException(obj.getClass());
-                }
-                values.add(longitudeNum);
+                values.add(parseDoubleNumber(longitudeObj));
 
                 // --- 纬度 ---
                 Field latitudeFiled = clazz.getDeclaredField(latitude);
                 latitudeFiled.setAccessible(true);
                 Object latitudeObj = latitudeFiled.get(obj);
-                Number latitudeNum;
-                if (latitudeObj == null) {
-                    latitudeNum = 0;
-                } else if (latitudeObj instanceof Number) {
-                    latitudeNum = (Number) latitudeObj;
-                } else {
-                    throw new InvalidYAxisValueException(obj.getClass());
-                }
-                values.add(latitudeNum);
+                values.add(parseDoubleNumber(latitudeObj));
 
                 result.setValue(values);
             } catch (Exception e) {

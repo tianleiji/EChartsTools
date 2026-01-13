@@ -2,7 +2,6 @@ package com.echarts.tool.extractor;
 
 import com.echarts.tool.contract.flexible.LineChartDataSupplier;
 import com.echarts.tool.exception.ChartFieldNotFoundException;
-import com.echarts.tool.exception.InvalidYAxisValueException;
 import com.echarts.tool.exception.NullXAxisValueException;
 import com.echarts.tool.model.LineChartResult;
 
@@ -10,6 +9,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.echarts.tool.check.Convert.parseIntegerNumber;
 
 public class LineChart{
 
@@ -58,15 +59,7 @@ public class LineChart{
                 Field Yfield = clazz.getDeclaredField(yFieldName);
                 Yfield.setAccessible(true);
                 Object yValue = Yfield.get(obj);
-                Number num;
-                if (yValue == null) {
-                    num = 0;
-                } else if (yValue instanceof Number) {
-                    num = (Number) yValue;
-                } else {
-                    throw new InvalidYAxisValueException(obj.getClass());
-                }
-                yData.add(num);
+                yData.add(parseIntegerNumber(yValue));
             } catch (Exception e) {
                 throw new RuntimeException("Failed to read field from object: " + obj, e);
             }
