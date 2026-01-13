@@ -1,19 +1,20 @@
 package com.echarts.tool.model;
 
 
+import com.echarts.tool.model.metaData.LineChartData;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class LineChartResult {
+public class LineChartResult{
     /**
      * 横坐标
      */
     private List<String> X_data;
 
     /**
-     * 纵坐标
+     * series数据
      */
-    private List<Number> Y_data;
+    private List<LineChartData> series;
 }

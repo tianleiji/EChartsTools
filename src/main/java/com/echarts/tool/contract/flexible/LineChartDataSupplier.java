@@ -1,5 +1,9 @@
 package com.echarts.tool.contract.flexible;
 
+import com.echarts.tool.contract.flexible.smallest.LineDataSupplier;
+
+import java.util.List;
+
 public interface LineChartDataSupplier {
     /**
      * 横坐标名称
@@ -8,8 +12,8 @@ public interface LineChartDataSupplier {
     String getXAxis();
 
     /**
-     * 纵坐标名称
-     * @return
+     * 线条信息定义
+     * @return 包含所有线条数据的列表
      */
-    String getYAxis();
+    List<LineDataSupplier> getLines();
 }

@@ -1,9 +1,8 @@
 package com.echarts.tool;
 
-import com.echarts.tool.extractor.GeoChart;
 import com.echarts.tool.extractor.LineChart;
-import com.echarts.tool.extractor.PieChart;
 import com.echarts.tool.extractor.strongType.StrongTypeGeoChart;
+
 import com.echarts.tool.extractor.strongType.StrongTypeLineChart;
 import com.echarts.tool.extractor.strongType.StrongTypePieChart;
 import com.echarts.tool.model.GeoChartResult;
@@ -27,7 +26,7 @@ public class AppTest
 {
 
     public static void main(String[] args) {
-        GeoChartTest();
+        LineChartTest();
     }
     /**
      * Create the test case
@@ -41,9 +40,9 @@ public class AppTest
             LineChartDomain domain = new LineChartDomain();
             domain.setId(i);
             domain.setName("test" + i);
-            domain.setValue(String.valueOf(i));
+            domain.setValue(i);
             domain.setColor("red" + i);
-            domain.setType("type" + i);
+            domain.setType(i);
             testList.add(domain);
         }
         // 2. 创建你的服务类实例（假设叫 ChartService）
@@ -54,7 +53,7 @@ public class AppTest
 
         // 4. 打印结果验证
         System.out.println("X轴数据: " + result.getX_data());
-        System.out.println("Y轴数据: " + result.getY_data());
+        System.out.println("Y轴数据: " + result.getSeries());
     }
 
 

@@ -1,15 +1,21 @@
 package com.echarts.tool.testVO;
 
 import com.echarts.tool.contract.flexible.LineChartDataSupplier;
+import com.echarts.tool.contract.flexible.smallest.LineDataSupplier;
+import com.echarts.tool.testVO.smallest.SmallestLineDomain;
 import lombok.Data;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 public class LineChartDomain implements LineChartDataSupplier {
     private Integer id;
     private String name;
-    private String value;
-    private String type;
+    private Integer value;
+    private Integer type;
     private String color;
+
 
     @Override
     public String getXAxis() {
@@ -17,7 +23,10 @@ public class LineChartDomain implements LineChartDataSupplier {
     }
 
     @Override
-    public String getYAxis() {
-        return "value";
+    public List<LineDataSupplier> getLines() {
+        return Arrays.asList(
+                new SmallestLineDomain("利润", "value")
+        );
     }
+
 }

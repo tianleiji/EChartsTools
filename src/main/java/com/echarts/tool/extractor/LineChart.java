@@ -3,11 +3,12 @@ package com.echarts.tool.extractor;
 import com.echarts.tool.contract.flexible.LineChartDataSupplier;
 import com.echarts.tool.exception.ChartFieldNotFoundException;
 import com.echarts.tool.exception.NullXAxisValueException;
+import com.echarts.tool.model.metaData.LineChartData;
 import com.echarts.tool.model.LineChartResult;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.echarts.tool.check.Convert.parseIntegerNumber;
@@ -15,17 +16,16 @@ import static com.echarts.tool.check.Convert.parseIntegerNumber;
 public class LineChart{
 
     public <T extends LineChartDataSupplier> LineChartResult getLineChart(List<T> objectList){
-        LineChartResult lineChartResult = new LineChartResult();
-
         if (objectList == null || objectList.isEmpty()) {
-            lineChartResult.setX_data(Collections.emptyList());
-            lineChartResult.setY_data(Collections.emptyList());
-            return lineChartResult;
+            return new LineChartResult();
         }
+
+        LineChartResult lineChartResult = new LineChartResult();
 
         T sample = objectList.get(0);
         String xFieldName = sample.getXAxis();
-        String yFieldName = sample.getYAxis();
+        String name = sample.getLines().get(0).getName();
+        String dataFieldName = sample.getLines().get(0).getDataName();
 
         Class<?> CheckClazz = sample.getClass();
         try {
@@ -34,14 +34,13 @@ public class LineChart{
             throw new ChartFieldNotFoundException(xFieldName, CheckClazz);
         }
         try{
-            CheckClazz.getDeclaredField(yFieldName); // 检查 Y 字段是否存在
+            CheckClazz.getDeclaredField(dataFieldName); // 检查 Y 字段是否存在
         } catch (NoSuchFieldException e) {
-            throw new ChartFieldNotFoundException(yFieldName, CheckClazz);
+            throw new ChartFieldNotFoundException(dataFieldName, CheckClazz);
         }
 
         List<String> xData = new ArrayList<>();
-        List<Number> yData = new ArrayList<>();
-
+        List<Number> Data = new ArrayList<>();
         for (T obj : objectList) {
             try {
                 Class<?> clazz = obj.getClass();
@@ -56,16 +55,17 @@ public class LineChart{
                 xData.add(xValue.toString());
 
                 // --- Y 轴 ---
-                Field Yfield = clazz.getDeclaredField(yFieldName);
+                Field Yfield = clazz.getDeclaredField(dataFieldName);
                 Yfield.setAccessible(true);
                 Object yValue = Yfield.get(obj);
-                yData.add(parseIntegerNumber(yValue));
+                Data.add(parseIntegerNumber(yValue));
             } catch (Exception e) {
                 throw new RuntimeException("Failed to read field from object: " + obj, e);
             }
         }
         lineChartResult.setX_data(xData);
-        lineChartResult.setY_data(yData);
+        LineChartData lineChartData = LineChartData.builder().name(name).data(Data).build();
+        lineChartResult.setSeries(new ArrayList<>(Arrays.asList(lineChartData)));
         return lineChartResult;
     }
 }
