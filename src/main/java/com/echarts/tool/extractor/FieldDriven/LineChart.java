@@ -1,7 +1,8 @@
 package com.echarts.tool.extractor.FieldDriven;
 
+import com.echarts.tool.check.CheckField;
 import com.echarts.tool.contract.FieldDriven.LineChartDataSupplier;
-import com.echarts.tool.exception.ChartFieldNotFoundException;
+import com.echarts.tool.contract.FieldDriven.smallest.LineDataSupplier;
 import com.echarts.tool.exception.NullXAxisValueException;
 import com.echarts.tool.model.metaData.LineChartData;
 import com.echarts.tool.model.LineChartResult;
@@ -22,29 +23,18 @@ public class LineChart{
 
         LineChartResult lineChartResult = new LineChartResult();
 
-        T sample = objectList.get(0);
-        String xFieldName = sample.getXAxis();
-        String name = sample.getLines().get(0).getName();
-        String dataFieldName = sample.getLines().get(0).getDataName();
 
-        Class<?> CheckClazz = sample.getClass();
-        try {
-            CheckClazz.getDeclaredField(xFieldName); // 检查 X 字段是否存在
-        } catch (NoSuchFieldException e) {
-            throw new ChartFieldNotFoundException(xFieldName, CheckClazz);
-        }
-        try{
-            CheckClazz.getDeclaredField(dataFieldName); // 检查 Y 字段是否存在
-        } catch (NoSuchFieldException e) {
-            throw new ChartFieldNotFoundException(dataFieldName, CheckClazz);
-        }
-
+        String name = null;
         List<String> xData = new ArrayList<>();
-        List<Number> Data = new ArrayList<>();
+        List<LineChartData> lineChartDataList = new ArrayList<>();
         for (T obj : objectList) {
+            List<Number> Data = new ArrayList<>();
             try {
+                String xFieldName = obj.getXAxis();
+                name = obj.getLines().get(0).getName();
+                List<LineDataSupplier> LineInfoList = obj.getLines();
                 Class<?> clazz = obj.getClass();
-
+                CheckField.CheckClassField(clazz, xFieldName);
                 // --- X 轴 ---
                 Field Xfield = clazz.getDeclaredField(xFieldName);
                 Xfield.setAccessible(true);
@@ -53,19 +43,24 @@ public class LineChart{
                     throw new NullXAxisValueException(obj);
                 }
                 xData.add(xValue.toString());
+                for (LineDataSupplier f : LineInfoList) {
+                    CheckField.CheckClassField(clazz, f.getDataName());
 
-                // --- Y 轴 ---
-                Field Yfield = clazz.getDeclaredField(dataFieldName);
-                Yfield.setAccessible(true);
-                Object yValue = Yfield.get(obj);
-                Data.add(parseIntegerNumber(yValue));
+                    // --- Y 轴 ---
+                    Field Yfield = clazz.getDeclaredField(f.getDataName());
+                    Yfield.setAccessible(true);
+                    Object yValue = Yfield.get(obj);
+                    Data.add(parseIntegerNumber(yValue));
+                }
+
             } catch (Exception e) {
                 throw new RuntimeException("Failed to read field from object: " + obj, e);
             }
+            LineChartData lineChartData = LineChartData.builder().name(name).data(Data).build();
+            lineChartDataList.add(lineChartData);
         }
         lineChartResult.setX_data(xData);
-        LineChartData lineChartData = LineChartData.builder().name(name).data(Data).build();
-        lineChartResult.setSeries(new ArrayList<>(Arrays.asList(lineChartData)));
+        lineChartResult.setSeries(lineChartDataList);
         return lineChartResult;
     }
 }
